@@ -10,7 +10,7 @@ def get_poster(movie_id):
 def recommend(movie):
     movie_index = movies[movies['title'] == movie].index[0]
     distances = simty[movie_index]
-    list_movies = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:11]
+    list_movies = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:selected_no+1]
     recommended_movies = []
     recommended_movies_poster = []
     for i in list_movies:
@@ -24,6 +24,9 @@ simty = simty.to_numpy()
 selected_movie_name = st.selectbox(
 'Select a Movie',
 movies['title'].values)
+selected_no = st.selectbox(
+'No.of Films to be Recommended',
+range(0,100))
 if st.button('Recommend'):
     mv, pst = recommend(selected_movie_name)
     list1=[]
